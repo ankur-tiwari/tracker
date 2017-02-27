@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="tracker">
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+    #map {
+        height: 100%;
+    }
+    
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDewFSa76E1NiECYYMaDVYPHvrW1KoGqOQ&sensor=false"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script type="text/javascript" src="static/app.js"></script>
+    <script type="text/javascript" src="static/controllers/mainController.js"></script>
+</body>
+
+</html>
