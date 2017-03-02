@@ -55,7 +55,7 @@ var assert = require('assert');
 
 
 
-app.use('/static', express.static('public'));
+app.use('/static', express.static('public/js'));
 
 var url = 'mongodb://localhost:27017/test';
 MongoClient.connect(url, function(err, db) {
@@ -98,22 +98,16 @@ MongoClient.connect(url, function(err, db) {
         });
     });
 
-
-
-
     app.get('/getDriver', function(req, res) {
         var device = req.param('driver_device_id');
         var data = db.collection('positions').find({ device_id: device }).toArray(function(err, docs) {
             res.send(docs);
         });
     });
-
-
-
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/views/index.html');
 });
 
 
