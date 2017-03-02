@@ -2,7 +2,7 @@ app.controller('MainController', ['$scope', '$http'], function($scope, $http) {
     $scope.getCutomerRevenue = function() {
         $http({
             method: 'GET',
-            url: 'http://localhost:3000/getDriver?driver_device_id=564564564565646456'
+            url: 'http://localhost:3000/getDriver'
         }).then(function successCallback(response) {
             function initialize(data) {
                 var myLatlng = new google.maps.LatLng(data.lat, data.lng);
