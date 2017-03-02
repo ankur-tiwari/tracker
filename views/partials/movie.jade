@@ -1,0 +1,65 @@
+.jumbotron.text-center
+	h1 Movie List
+	p "{{ tagline }}"
+
+h2 Add New Movie
+.panel.panel-info
+	.panel-heading 
+		h3 Asynchronous API Calls
+	.panel-body This will query 
+		a(href='http://www.omdbapi.com/' target='_blank') The Open Movie Database API.  
+
+	.panel-body
+		form.form-inline(name='inputForm', ng-submit='createMovie(inputForm.$valid)')
+			div.form-group
+				label(for="movieTitle") Title
+				input(id="movieTitle", placeholder='Title', required='', ng-model="newMovieTitle", uib-typeahead="movie for movie in getMovies($viewValue)", typeahead-on-select='onSelect($item, $model, $label)', typeahead-min-length=2, typeahead-loading='loadingMovies')
+
+				i.glyphicon.glyphicon-refresh.ng-hide(ng-show="loadingMovies")
+				i.glyphicon.glyphicon-film.ng-show(ng-hide="loadingMovies")
+
+				label(for="movieYear") Year
+				input(id="movieYear", placeholder='Year', type='number', min='1900', max='2050', ng-model='newMovieYear', required='')
+				label(for="movieDirector") Director
+				input(id="movieDirector", placeholder='Director', ng-model='newMovieDirector', required='')
+				button.btn.btn-primary(type='submit', ng-disabled='inputForm.$invalid') Save
+	.panel-body 	
+		.alert.alert-success.ng-hide(ng-show="saveSuccess") {{msgText}}
+		.alert.alert-danger.ng-hide(ng-show="saveError") {{msgText}}
+		p.alert.alert-info.ng-hide(ng-show="hasPlot") Plot: {{thePlot}}
+	.panel-body
+		p The first query performs a wildcard search for movies as you type.  
+		p The second query obtains the <i><strong>director</strong></i> for your selected movie title.
+	.panel-footer
+		span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+		span  {{queryUrl || ' Type something in the Title field above'}}
+hr
+h2 Your Movies <small>{{movieCount}}</small>
+.row
+	table.table.table-striped.table-bordered.table-condensed(ng-init='grabMovies()')
+		tr
+			th.text-center Title
+			th.text-center Year
+			th.text-center Director
+			th.text-center Watched
+			th.text-center Rating
+			th.text-center Actions
+		tr(ng-repeat='movie in movies' )
+			td
+				span.movieTitle(movetitle='{{movie.title}}', editable-text='movie.title', e-name='title', e-form='rowform', onbeforesave='checkTitle($data)', e-required) {{ movie.title || 'empty' }}
+			td
+				span.movieYear(movieyear='{{movie.year}}', editable-number='movie.year', e-name='year', e-form='rowform', onbeforesave='checkYear($data)', e-min='1900', e-max='2050', e-required) {{ movie.year || 'empty' }}
+			td
+				span.movieDirector(moviedirector='{{movie.director}}', editable-text='movie.director', e-form='rowform', e-name='director', onbeforesave='checkDirector($data)', e-required) {{ movie.director || 'empty' }}
+			td.text-center
+				span.movieWatched(moviewatched='{{movie.watched}}', e-ng-change='toggleRating(this, movie)', editable-checkbox='movie.watched', e-form='rowform', e-name='watched') {{ movie.watched && 'Watched' || 'Not Watched' }}
+			td.text-center
+				span.movieRating.rating(movierating='{{movie.rating}}', e-ng-disabled='!movie.watched', editable-select='movie.rating', e-ng-options="s.value as s.text for s in ratingScale", e-form='rowform', e-name='rating', e-min='0', e-max='5') {{ movie.rating || 'Unrated' }}
+			td.text-center
+				button.btn.btn-block.btn-default(type='button', ng-click='rowform.$show()', ng-show='!rowform.$visible') Edit
+				
+
+				form(editable-form='', name='rowform', ng-show='rowform.$visible', onbeforesave='saveMovie($data, movie._id)')
+					button.btn.btn-block.btn-primary(type='submit', ng-disabled='editableForm.$waiting') Save
+					button.btn.btn-block.btn-default(type='button', ng-disabled='editableForm.$waiting', ng-click='rowform.$cancel()') Cancel
+					button.btn.btn-block.btn-danger(type='button', ng-disabled='editableForm.$waiting', ng-click="delMovie(movie._id)") Delete

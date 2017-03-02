@@ -1,0 +1,33 @@
+.jumbotron.text-center
+	h1 Dynamic & Responsive Charts
+		p "{{ tagline }}"
+.panel.panel-default
+	.panel-heading
+		h2 Bar Chart
+	.panel-body
+		.col-md-5
+			h3 Movies Per Year
+			p A responsive bar chart showing the number of movies per year in your dataset
+		.col-md-7
+			canvas#byYear.chart.chart-bar(chart-data='yearData', chart-labels='yearLabels', chart-series='yearSeries', chart-legend=true)
+	.panel-footer
+.panel.panel-default
+	.panel-heading
+		h2 Radar Chart
+	.panel-body
+		.col-md-5
+			h3 Movies By Rating
+			p A responsive radar chart showing the ratings of movies in your dataset
+		.col-md-7
+			canvas#byRating.chart.chart-radar(chart-data='ratingsData', chart-labels='ratingsLabels', chart-legend=false)
+	.panel-footer
+.panel.panel-default
+	.panel-heading
+		h2 Mmmmm. Doughnut Chart
+	.panel-body
+		.col-md-5
+			h3 Movies Watched
+			p A responsive doughnut chart showing the which of your movies you have seen in your dataset
+		.col-md-7
+			canvas#byWatched.chart.chart-doughnut(chart-data='watchedData', chart-labels='watchedLabels', chart-legend=true)
+	.panel-footer

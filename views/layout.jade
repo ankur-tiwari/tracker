@@ -1,0 +1,80 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		base(href='/')
+		title MEAN Stack Movies
+
+		// CSS
+		link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.min.css')
+		link(rel='stylesheet', href='bower_components/angular-xeditable/dist/css/xeditable.css')
+		link(rel='stylesheet', href='bower_components/angular-chart.js/dist/angular-chart.css')
+
+		// custom styles
+		link(rel='stylesheet', href='css/style.css')
+		link(rel='stylesheet', href='css/isotope.css')
+
+		// JS
+		script(src='bower_components/jquery/dist/jquery.min.js')
+		script(src='bower_components/angular/angular.min.js')
+		script(src='bower_components/angular-route/angular-route.min.js')
+		script(src='bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
+		script(src='bower_components/angular-xeditable/dist/js/xeditable.js')
+		script(src='bower_components/Chart.js/dist/Chart.min.js')
+		script(src='bower_components/angular-chart.js/dist/angular-chart.min.js')
+		script(src='bower_components/isotope/jquery.isotope.min.js')
+		script(src='bower_components/angular-isotope/dist/angular-isotope.min.js')
+
+		// ANGULAR CUSTOM
+		script(src='js/utils.js')
+		script(src='js/controllers/MainCtrl.js')
+		script(src='js/controllers/MovieCtrl.js')
+		script(src='js/services/MovieService.js')
+		script(src='js/controllers/AboutCtrl.js')
+		script(src='js/services/AboutService.js')
+		script(src='js/controllers/ChartCtrl.js')
+		script(src='js/services/ChartService.js')
+		script(src='js/controllers/IsotopeCtrl.js')
+		script(src='js/services/IsotopeService.js')
+		script(src='js/appRoutes.js')
+		script(src='js/app.js')
+
+	body(ng-app='meanApp', ng-controller='MovieController')
+		.container
+
+			// HEADER
+			header.navbar.navbar-fixed-top.navbar-inverse(role='banner')
+				.container.container-narrow
+					nav(role='navigation', ng-controller='HeaderController')
+						.navbar-header.container-fluid
+							a.navbar-brand(href='/')
+								span.glyphicon.glyphicon-film
+								span  MEAN Stack Movies
+							button.navbar-toggle(type='button', ng-click='isCollapsed = !isCollapsed')
+								span.sr-only Toggle navigation
+								span.icon-bar
+								span.icon-bar
+								span.icon-bar
+						#topMenu.collapse.navbar-collapse.bs-js-navbar-collapse(uib-collapse='isCollapsed')
+							ul.nav.navbar-nav
+								li(ng-class="{ active: isActive('/movies')}")
+									a(href='/movies') Movies
+								li(ng-class="{ active: isActive('/charts')}")
+									a(href='/charts') Charts
+								li(ng-class="{ active: isActive('/isotope')}")
+									a(href='/isotope') Isotope
+								li(ng-class="{ active: isActive('/about')}")
+									a(href='/about') About
+
+			// ANGULAR DYNAMIC CONTENT
+			div(ng-view='')
+				block content
+
+			// FOOTER
+			footer.navbar.navbar-inverse.navbar-fixed-bottom
+				.container.container-narrow.footer(ng-controller='FooterController')
+					p.text-muted.credit
+					| Created by 
+					a(target='_blank', href='http://www.daryljewkes.com') Daryl Jewkes
+					|  .:. MEAN Stack Movies

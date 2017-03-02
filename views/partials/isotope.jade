@@ -1,0 +1,17 @@
+.jumbotron.text-center
+	h1 MetaFizzy Isotope
+	p "{{ tagline }}"
+
+.panel.panel-default
+	.btn-group(opt-kind, ok-key="sortBy")
+		button.btn.btn-default.active(type="button" ok-sel="[movietitle]" ok-type="string") Title
+		button.btn.btn-default(type="button" ok-sel="[movieyear]" ok-type="integer") Year
+		button.btn.btn-default(type="button" ok-sel="[moviedirector]" ok-type="string") Director
+
+.panel.panel-default
+	ul(id="isotopeContainer" isotope-container ng-init='isoInit()'  )
+		li( ng-repeat="movie in movies track by movie.title" isotope-item="isotope-item" )
+			.item
+				.movietitle(movietitle='{{movie.title}}') {{movie.title}}
+				.movieyear(movieyear='{{movie.year}}') {{movie.year}}
+				.moviedriector(moviedirector='{{movie.director}}') {{movie.director}}

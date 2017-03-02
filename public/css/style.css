@@ -1,0 +1,78 @@
+body { padding-top:30px; margin-top: 60px; margin-bottom: 60px; }
+
+
+.footer {
+  height: 40px;
+  color: #9d9d9d;
+  text-align: center;
+}
+
+.footer a {
+  color: white;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+form[name="editableForm"] > div {
+  height: auto;
+  padding: 5px 0;
+}
+
+form[name="editableForm"] .title {
+  display: inline-block;
+  font-weight: bold;
+  padding-top: 5px;
+  vertical-align: top;
+  min-width: 90px;
+}
+
+form[name="editableForm"] .editable {
+  display: inline-block;
+  padding-top: 5px;
+  vertical-align: top;
+}
+
+form[name="editableForm"] select {
+  width: 120px;
+}
+
+p.item > span {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.btn {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.movieTitle {
+
+}
+
+.movieYear {
+
+}
+
+.movieDirector {
+
+}
+
+.form-group > label, input {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.item {
+  border: 1px solid grey;
+  padding: 5px;
+  border-radius: 12px;
+  text-overflow: ellipsis;
+  min-width: 40px
+}
+
+.item > span {
+  display: inline-block;
+}

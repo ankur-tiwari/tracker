@@ -1,0 +1,19 @@
+{
+  "name": "meanStack",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-bootstrap": "~0.14.3",
+    "angular-xeditable": "~0.1.9",
+    "angular-chart.js": "~1.0.0",
+    "Chart.js": "^2.1.6",
+    "typeahead.js": "~0.11.1",
+    "angular-typeahead": "~0.3.1",
+    "angular-isotope": "~0.1.8"
+  },
+  "resolutions": {
+    "Chart.js": "^2.1.6"
+  }
+}
