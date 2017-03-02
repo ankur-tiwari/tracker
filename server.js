@@ -2,33 +2,33 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var MongoClient = require('mongodb').MongoClient;
+// var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/tracker123');
+// var mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/tracker123');
 
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
-db.on('error', function(err) {
-    console.log('connection error', err);
-});
-db.once('open', function() {
-    console.log('connected.');
-});
+// db.on('error', function(err) {
+//     console.log('connection error', err);
+// });
+// db.once('open', function() {
+//     console.log('connected.');
+// });
 
-var positionSchema = mongoose.Schema({
-    device_id: String,
-    lat: String,
-    lng: String,
-    status: String,
-    created_at: String,
-    updated_at: String
-});
+// var positionSchema = mongoose.Schema({
+//     device_id: String,
+//     lat: String,
+//     lng: String,
+//     status: String,
+//     created_at: String,
+//     updated_at: String
+// });
 
-var position = mongoose.model('Positions', positionSchema);
+// var position = mongoose.model('Positions', positionSchema);
 app.use('/static', express.static('public/js'));
 
-function updateLatLng(data) {
+/*function updateLatLng(data) {
     var dateString = new Date,
         dformat = [dateString.getMonth() + 1, dateString.getDate(), dateString.getFullYear()].join('/') + ' ' + [dateString.getHours(), dateString.getMinutes(), dateString.getSeconds()].join(':');
     position.find({ 'device_id': data.device_id }, function(err, docs) {
@@ -45,7 +45,7 @@ function updateLatLng(data) {
             });
         }
     });
-}
+}*/
 
 io.sockets.on('connection', function(socket) {
     var id = socket.id;
@@ -57,7 +57,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('position', function(data) {
         socket.emit('position', { position: data });
         console.log('Position Update');
-        updateLatLng(data);
+        // updateLatLng(data);
         position.find({}, function(err, docs) {
             socket.emit('free_driver', { free_driver: docs });
             socket.broadcast.emit('free_driver', { free_driver: docs });
@@ -76,12 +76,12 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
-app.get('/getDriver', function(req, res) {
+/*app.get('/getDriver', function(req, res) {
     position.find({}, function(err, docs) {
         res.send(docs);
     });
 });
-
+*/
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/views/index.html');
