@@ -3,10 +3,11 @@ app.run(['$rootScope', '$http', '$interval', function($rootScope, $http, $interv
     $rootScope.getPosition = function() {
         $http({
             method: 'GET',
-            url: '/getDriver?driver_device_id=358271063726603'
+            url: '/getDriver'
         }).then(function successCallback(response) {
             initialize(response.data);
             var directionsService = new google.maps.DirectionsService();
+            var bounds = new google.maps.LatLngBounds();
             var directionsDisplay;
 
             function initialize(value) {
@@ -39,7 +40,7 @@ app.run(['$rootScope', '$http', '$interval', function($rootScope, $http, $interv
                     map.setCenter(marker.getPosition())
 
 
-                    var content = "Status: " + loan
+                    var content = "MG Id: " + loan
 
                     var infowindow = new google.maps.InfoWindow()
 
@@ -50,7 +51,18 @@ app.run(['$rootScope', '$http', '$interval', function($rootScope, $http, $interv
                         };
                     })(marker, content, infowindow));
 
-                   /* var start = new google.maps.LatLng(locations[i].lat, locations[i].lng);
+                    var bounds = new google.maps.LatLngBounds();
+                    for (var i = 0; i < locations.length; i++) {
+                        var myLatLng = new google.maps.LatLng(locations[i].lat, locations[i].lng);
+                        var marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                        });
+                        bounds.extend(myLatLng);
+                    }
+                    map.fitBounds(bounds);
+
+                    /* var start = new google.maps.LatLng(locations[i].lat, locations[i].lng);
  //var end = new google.maps.LatLng(38.334818, -181.884886);
  var end = new google.maps.LatLng(locations[i + 1].lat, locations[i + 1].lng);
  var request = {
@@ -79,5 +91,20 @@ app.run(['$rootScope', '$http', '$interval', function($rootScope, $http, $interv
         });
     };
     $rootScope.getPosition();
-    $interval($rootScope.getPosition, 20000);
+    $interval($rootScope.getPosition, 50000);
 }]);
+app.factory('Socket', function($rootScope) {
+    var socket = io.connect('http://localhost:3000');
+
+    //Override socket.on to $apply the changes to angular
+    return {
+        on: function(eventName, fn) {
+            socket.on(eventName, function(data) {
+                $rootScope.$apply(function() {
+                    fn(data);
+                });
+            });
+        },
+        emit: socket.emit
+    };
+})
