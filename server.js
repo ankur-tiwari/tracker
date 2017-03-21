@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/tracker');
+mongoose.connect('mongodb://heroku_mvjbw9sw:a4lf8et48lhrmeefas5n3oqtcm@ds137760.mlab.com:37760/heroku_mvjbw9sw');
 
 var db = mongoose.connection;
 
