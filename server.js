@@ -20,8 +20,16 @@ var positionSchema = mongoose.Schema({
     device_id: String,
     lat: String,
     lng: String,
+    accuracy: String,
+    bearing: String,
+    speed: String,
+    altitude: String,
+    time: String,
+    mg_code: String,
     status: String,
+    customer_id: String,
     created_at: String,
+    booking_id: String,
     updated_at: String
 });
 
@@ -34,11 +42,11 @@ function updateLatLng(data) {
     position.find({ 'device_id': data.device_id }, function(err, docs) {
         console.log(docs.length);
         if (docs.length > 0) {
-            position.update({ device_id: data.device_id }, { $set: { lat: data.lat, lng: data.lng, status: data.status, created_at: dateString } }, function(err, doc) {
+            position.update({ device_id: data.device_id }, { $set: { lat: data.lat, lng: data.lng, accuracy: data.accuracy, bearing: data.bearing, speed: data.speed, altitude: data.altitude, time: data.time, mg_code: data.mg_code, status: data.status, customer_id: data.customer_id, created_at: dateString, booking_id: data.booking_id, updated_at: dateString } }, function(err, doc) {
 
             });
         } else {
-            result = new position({ device_id: data.device_id, lat: data.lat, lng: data.lng, status: data.status, created_at: dateString });
+            result = new position({ device_id: data.device_id, lat: data.lat, lng: data.lng, accuracy: data.accuracy, bearing: data.bearing, speed: data.speed, altitude: data.altitude, time: data.time, mg_code: data.mg_code, status: data.status, customer_id: data.customer_id, created_at: dateString, booking_id: data.booking_id, updated_at: dateString });
             result.save(function(err, data) {
                 if (err) console.log(err);
                 else console.log('Saved : ', data);
@@ -94,6 +102,6 @@ function doorClicked() {
     socket.emit('door');
 }
 
-http.listen(process.env.PORT, function() {
+http.listen(port: process.env.PORT || 3000, function() {
     console.log('listening on *:3000');
 });
